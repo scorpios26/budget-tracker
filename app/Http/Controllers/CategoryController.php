@@ -24,4 +24,10 @@ class CategoryController extends Controller
             return redirect()->back()->with('error', 'Category already exists!');
         }
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->back()->with('success', 'Category deleted successfully!');
+    }
 }

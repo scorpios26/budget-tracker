@@ -20,6 +20,10 @@ Route::get('/dashboard', function () {
     Route::post('/expense', [ExpenseController::class, 'store'])->name('expense.store');
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/expense/{id}', [ExpenseController::class, 'update'])->name('expense.update');
+    Route::delete('/expense/{id}', [ExpenseController::class, 'destroy'])->name('expense.destroy');
+    Route::delete('/category/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/expenses/export-csv', [App\Http\Controllers\ExpenseController::class, 'exportCsv'])->name('expenses.exportCsv');
 
 
 Route::middleware('auth')->group(function () {

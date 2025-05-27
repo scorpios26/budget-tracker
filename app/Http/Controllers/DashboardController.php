@@ -21,8 +21,12 @@ class DashboardController extends Controller
 
         // Fetch all categories
         $categories = Category::all();
+        // Fetch all expenses with their categories
+        $expenses = Expense::with('category')->paginate(10);
+        // Fetch all budgets for the user
+        $budgets = Budget::where('user_id', $userId)->orderBy('month', 'desc')->get();
 
-        return view('dashboard', compact('budgetAmount', 'totalExpenses', 'remaining', 'categories'));
+        return view('dashboard', compact('budgetAmount', 'totalExpenses', 'remaining', 'categories', 'budgets', 'expenses'));
     }
 }
 
