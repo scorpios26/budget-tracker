@@ -27,6 +27,11 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        // Prevent deletion if category is used by any expense
+        $expenseCount = $category->expenses()->count();
+        if ($expenseCount > 0) {
+            return redirect()->back()->withErrors('Cannot delete category: it is assigned to one or more expenses.');
+        }
         $category->delete();
         return redirect()->back()->with('success', 'Category deleted successfully!');
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
-    protected $fillable = ['user_id', 'title', 'amount', 'category_id', 'date'];
+    protected $fillable = ['user_id', 'budget_id', 'title', 'amount', 'category_id', 'date'];
 
     /**
      * Get the user that owns the expense.
@@ -23,5 +23,13 @@ class Expense extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the budget associated with the expense.
+     */
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
     }
 }

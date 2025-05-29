@@ -16,5 +16,13 @@ class Budget extends Model
         return $this->belongsTo(User::class, 'foreign_key', 'other_key');
     }
 
-        protected $fillable = ['user_id', 'amount', 'month'];
+    /**
+     * Get the expenses for the budget.
+     */
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    protected $fillable = ['user_id', 'title', 'amount', 'month'];
 }

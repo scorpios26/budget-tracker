@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->decimal('amount', 10, 2);
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->dropColumn('category');
             $table->date('date');
             $table->timestamps();
         });
@@ -28,10 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
-        $table->dropForeign(['category_id']);
-        $table->dropColumn('category');
-        $table->string('category')->nullable(); // revert to old column
-    });
+        Schema::dropIfExists('expenses');
     }
 };

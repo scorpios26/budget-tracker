@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
-        // Remove old category column
-        $table->dropColumn('category');
-
-        // Add new category_id column (nullable for now)
-        $table->unsignedBigInteger('category_id')->nullable()->after('amount');
-
-        // Optional: Add foreign key constraint
-        $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
-    });
+        // This migration is now redundant because category_id is already created in the initial expenses table migration.
+        // Schema::table('expenses', function (Blueprint $table) {
+        //     $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+        // });
     }
 
     /**
@@ -28,11 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('expenses', function (Blueprint $table) {
-        // Revert the changes
-        $table->dropForeign(['category_id']);
-        $table->dropColumn('category');
-        $table->string('category')->nullable();
-    });
+        // Schema::table('expenses', function (Blueprint $table) {
+        //     $table->dropForeign(['category_id']);
+        //     $table->dropColumn('category_id');
+        // });
     }
 };
