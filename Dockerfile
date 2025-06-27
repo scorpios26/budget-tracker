@@ -32,12 +32,15 @@ COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-RUN sed -i 's|listen = .*|listen = 9000|' /usr/local/etc/php-fpm.d/www.conf
-
+RUN sed -i 's|listen = .*|listen = /run/php/php8.2-fpm.sock|' /usr/local/etc/php-fpm.d/www.conf
 
 # Expose port
 EXPOSE 80
 
 # Start services
 CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
+
+
+RUN cat storage/logs/laravel.log || echo 'No Laravel log found'
+
 
