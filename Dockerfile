@@ -32,6 +32,9 @@ COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+RUN sed -i 's|listen = .*|listen = 9000|' /usr/local/etc/php-fpm.d/www.conf
+
+
 # Expose port
 EXPOSE 80
 
