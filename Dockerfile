@@ -22,6 +22,9 @@ WORKDIR /var/www
 # Copy project files
 COPY . .
 
+
+RUN composer install --no-dev --optimize-autoloader
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
