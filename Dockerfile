@@ -1,5 +1,8 @@
 FROM php:8.2-fpm
 
+ENV PORT=80
+
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     nginx \
