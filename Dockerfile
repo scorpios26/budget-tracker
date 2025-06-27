@@ -29,6 +29,9 @@ RUN chown -R www-data:www-data /var/www \
 # Copy custom Nginx config
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
+
 # Expose port
 EXPOSE 80
 
